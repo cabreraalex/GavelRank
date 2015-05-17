@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  location: MyString
+  students: 1
+  best: 1
+  outstanding: 1
+  honorable: 1
+  email: MyString
+  password: MyString
+  salt: MyString
+  geo: MyString
+  score: 1
+
+two:
+  name: MyString
+  location: MyString
+  students: 1
+  best: 1
+  outstanding: 1
+  honorable: 1
+  email: MyString
+  password: MyString
+  salt: MyString
+  geo: MyString
+  score: 1

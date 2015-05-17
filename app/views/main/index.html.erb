@@ -1,0 +1,85 @@
+<%= stylesheet_link_tag "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" %>
+<%= javascript_include_tag "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js" %>
+<div class="container-left" >
+    <!--<h2 class='center'>Upcoming Conferences</h2>-->
+    <table id="upcoming">
+        <thead class='grey'>
+            <tr class='grey'>
+                <th>EVENT</th>
+                <th>HOST</th>
+                <th>DATE</th>
+            </tr>
+        </thead>
+         <% @events.order('date').first(3).each do |event| %>
+        <tr>
+            <td><a href="/event/<%=event.id%>"><%= event.name%></a></td>
+            <td><%= event.location%></td>
+            <td><%= event.date.split(" ")[1..100].join(" ")%></td>
+        </tr>
+        <%end%>
+    </table>
+    <a href="/events"><div class='grey'><h4>more...</h4></div></a>
+
+</div>
+
+<div class="container-right" >
+    <!--<h2 class='center'>Results</h2>-->
+    <% @events.order("date").last(2).each do |event| %>
+    <div class='grey'><h3><a href="/event/<%=event.id%>"><%= event.name%></a><br /></h3><h4><%=event.date.split(" ")[1..100].join(" ")%></h4></div>
+    <table id="recenttable">
+        <tr>
+            <td class="left">
+                <h4 class='lefttext'>Best Delegation: </h4>
+            </td>
+            <td class="right">
+                <h4 class="righttext"><a href="#"><%=calculate_best(event,0)%></a></h4>
+            </td>
+        </tr>
+        <tr>
+            <td class="left">
+                <h4 class='lefttext'>Outstanding Delegation: </h4>
+            </td>
+            <td class="right">
+                <h4 class="righttext"><a href="#"><%=calculate_best(event,1)%></a></h4>
+            </td>
+        </tr>
+        <tr>
+            <td class="left">
+                <h4 class='lefttext'>Honorable Delegation: </h4>
+            </td>
+            <td class="right">
+                <h4 class="righttext"><a href="#"><%=calculate_best(event,2)%></a></h4>
+            </td>
+        </tr>
+    </table>
+    <%end%>
+    <a href="/results"><div class='grey'><h4>more...</h4></div></a>
+</div>
+
+
+<div class="container-left" >
+    <div id ="map">
+    
+    </div>
+    <script type="text/javascript">
+		var map = L.map('map').setView([38.8400539, -77.2765858], 10);
+
+		L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
+			maxZoom: 18,
+			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+				'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+				'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+			id: 'examples.map-i875mjb7'
+		}).addTo(map);
+
+        <% @events.each do |event|%>
+		   maker = new L.marker([<%= event.geo %>]).addTo(map)
+			.bindPopup("<a href='/event/<%= event.id %>'><%=event.name%></a><br /><%=event.location%><br /><%= event.date.split(' ')[1..100].join(' ')%>");
+            
+        <% end %>
+        
+	
+
+
+    </script>
+</div>

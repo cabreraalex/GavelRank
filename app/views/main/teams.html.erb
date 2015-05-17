@@ -1,0 +1,21 @@
+<div class="container">
+    <table id="upcoming">
+        <thead class='grey'>
+            <tr>
+                <th>TEAM</th>
+                <th>LOCATION</th>
+                <th>SCORE</th>
+            </tr>
+        </thead>
+         <% @teams.order("score").reverse.each do |team| %>
+        <tr>
+            
+            <td><a href="/team/<%=team.id%>"><%= team.name%></a></td>
+            <td><%= team.location%></td>
+            <td><%= team.score%>
+            </td>
+        
+        </tr>
+        <%end%>
+    </table>
+</div>

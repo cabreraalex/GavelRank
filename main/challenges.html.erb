@@ -1,0 +1,50 @@
+<%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+
+<% if current_user %>
+   <% if current_user.message != "" %>
+        <div id="container"> <b>Personal Message from Admin:</b> <%= raw current_user.message %></div>
+   <% end %>
+<%end%>
+
+<div id="container">
+    <div id="chart">
+        <%=column_chart(Challenge.group(:title).sum(:solves), :library=> {:colors => ["red"], 
+        :title =>["Number of solves for each challenge"], :hAxis => {:title => ["Challenges"]}, :vAxis => {title: ["Number of Solves"]}}) %>
+    </div>
+    <ul id="challenges">
+        <% @chals.each do |chal| %>
+            <li>
+                <div id="title" class="header">
+                    <h2><%= chal.title %> <span id="red"><%= chal.value %></span></h2>
+                    <h3>Solves: <%= chal.solves %></h3>
+                    <% if current_user %>
+                        <% if current_user.flags_solved.include?(chal.title) %>
+                             <h3><%= chal.category %> - Solved</h3>
+                        <% else%>
+                            <h3><%= chal.category %></h3>
+                        <% end %>
+                    <% else %>
+                        <h3><%= chal.category %></h3>
+                    <% end %>
+                    <% if chal.break_through!="" %>
+                        <h3>Breakthrough: <%= chal.break_through %></h3>
+                    <% end %>
+                </div>
+                <div class="chal_info">
+                    <p id="desc"><%=raw chal.description%></p>
+                    <div id="flagsub">
+                    <% if current_user %>
+                        <%= form_for :flag_submit,  :method => 'post' do |f| %>
+                            <%= submit_tag("Submit", :challenge => chal.title)%> 
+  			                <%= f.text_field :flag , placeholder: "", :class => "input-large" %>
+  			                <%= f.hidden_field "challenge", :value => chal.title %>
+     	            <% end %>
+     	            </div>
+                    <a id="hint" class="button red">Hint</a>
+                    <h4 id="hinty" hidden="true" >Hint: <%=raw chal.hint %></h3>
+                   <% end %>
+                </div>
+            </li>
+            <% end %>
+    </ul>
+</div>

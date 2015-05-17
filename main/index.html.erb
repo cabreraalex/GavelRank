@@ -1,0 +1,11 @@
+<div id="container">
+    <%= image_tag("banner.png")%>
+</div>
+
+<% News.all.each do | news| %>
+    <div id="container">
+        <h2> <%= news.title %> </h2>
+        <h3><%= raw news.message %></h3>
+        <h3>by <%= news.author %> at <%= news.created_at.in_time_zone("Eastern Time (US & Canada)").asctime %></h3>
+    </div>
+<% end %>

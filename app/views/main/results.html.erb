@@ -1,0 +1,35 @@
+<div class="container">
+    <h2 class='center'>Results</h2>
+    <% Event.all.order("date").last(5).each do |event| %>
+    <div class="container" style="width:250px;">
+    <div class='grey'><h3><a href="/event/<%=event.id%>"><%= event.name%></a><br /></h3><h4><%=event.date.split(" ")[1..100].join(" ")%></h4></div>
+    <table id="recenttable" style="width:100%">
+        <tr>
+            <td class="left">
+                <h4 class='lefttext'>Best Delegation: </h4>
+            </td>
+            <td class="right">
+                <h4 class="righttext"><a href="#"><%=calculate_best(event,0)%></a></h4>
+            </td>
+        </tr>
+        <tr>
+            <td class="left">
+                <h4 class='lefttext'>Outstanding Delegation: </h4>
+            </td>
+            <td class="right">
+                <h4 class="righttext"><a href="#"><%=calculate_best(event,1)%></a></h4>
+            </td>
+        </tr>
+        <tr>
+            <td class="left">
+                <h4 class='lefttext'>Honorable Delegation: </h4>
+            </td>
+            <td class="right">
+                <h4 class="righttext"><a href="#"><%=calculate_best(event,2)%></a></h4>
+            </td>
+        </tr>
+    </table>
+        </div>
+
+    <%end%>
+</div>

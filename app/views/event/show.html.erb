@@ -1,0 +1,65 @@
+<%= stylesheet_link_tag "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" %>
+<%= javascript_include_tag "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js" %>
+
+<div class='container' style="height:100px">
+    <div id ="map" style="width: 300px; height: 100px; float:right">
+    
+    </div>
+    <script type="text/javascript">
+		var map = L.map('map', { zoomControl:false }).setView([<%= @event.geo %>], 12);
+
+		L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
+			maxZoom: 18,
+			id: 'examples.map-i875mjb7'
+		}).addTo(map);
+
+        
+		maker = new L.marker([<%= @event.geo %>]).addTo(map)
+			.bindPopup("<a href='#'><%=@event.name%></a><br /><%=@event.location%>");
+            
+
+	
+
+
+    </script>
+    <h1 style="margin-top:27px;margin-left:4px;"><%= @event.name %></h1>
+</div>
+<div class='container-left'>
+	<h3>About</h3>
+	<div class="grey" style='width:500px; padding:20px'>
+		<%= @event.about %>
+	</div>
+	<div class="grey" style="width:500px; padding:20px; margin-top:15px">
+		<a href="<%= @event.link %>">Visit <%= @event.name %>'s Website</a>
+	</div>
+</div>
+<div class='container-right'>
+    <div class='grey'><h3><a href="/event/<%=@event.id%>"><%=@event.date.split(" ")[1..100].join(" ")%></a><br /></h3><h4></h4></div>
+    <table id="recenttable">
+        <tr>
+            <td class="left">
+                <h4 class='lefttext'>Best Delegation: </h4>
+            </td>
+            <td class="right">
+            	<%z=calculate_best(@event,0)%>
+                <h4 class="righttext"><a href="/team/<%= School.find_by_name(z)%>"><%=z%></a></h4>
+            </td>
+        </tr>
+        <tr>
+            <td class="left">
+                <h4 class='lefttext'>Outstanding Delegation: </h4>
+            </td>
+            <td class="right">
+                <h4 class="righttext"><a href="#"><%=calculate_best(@event,1)%></a></h4>
+            </td>
+        </tr>
+        <tr>
+            <td class="left">
+                <h4 class='lefttext'>Honorable Delegation: </h4>
+            </td>
+            <td class="right">
+                <h4 class="righttext"><a href="#"><%=calculate_best(@event,2)%></a></h4>
+            </td>
+        </tr>
+    </table>
+</div>

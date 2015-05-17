@@ -1,0 +1,14 @@
+<div class='container'>
+    <h3>Register a School</h3>
+    <div class='grey' style="text-align:left; padding:20px; margin: 0px auto; width: 200px; padding-top:0px">
+    <%= form_for :team, :method => 'post' do |f| %>
+        <h4>School: <%= f.text_field :name, placeholder: "e.g. W.T. Woodson High School", :class => "register"  %></h4>
+        <h4>Location: <%= f.text_field :location, placeholder: "e.g. Fairfax, VA", :class => "register"  %></h4>
+        <h4>Number of Students: <%= f.text_field :students, placeholder: "e.g. 50", :class => "register"  %></h4>
+      	<h4>Email: <%= f.text_field :email, placeholder: "e.g. joe@bob.com", :class => "register"  %></h4>
+        <h4>Password: <%= f.password_field :password , placeholder: "e.g. I4mzec00l3st!", :class => "register" %></h4>
+      	<h4>Confirm Password: <%= f.password_field :password_conf , placeholder: "confirm", :class => "register" %></h4>
+        <h4 class='center'></h4><%= submit_tag("Register")  %>
+    <% end %>
+    </div>
+</div>

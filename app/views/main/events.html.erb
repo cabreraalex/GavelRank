@@ -1,0 +1,25 @@
+<% if current_user %>
+<div class="container">
+    <a href="/event/create">Create a Conference!</a>
+</div>
+<%end%>
+<div class="container">
+    <table id="upcoming">
+        <thead class='grey'>
+            <tr>
+                <th>EVENT</th>
+                <th>HOST</th>
+                <th>DATE</th>
+            </tr>
+        </thead>
+         <% @events.order("date").each do |event| %>
+        <tr>
+            
+            <td><a href="/event/<%=event.id%>"><%= event.name%></a></td>
+            <td><%= event.location%></td>
+            <td><%= event.date.split(" ")[1..100].join(" ")%></td>
+            
+        </tr>
+        <%end%>
+    </table>
+</div>

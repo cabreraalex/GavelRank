@@ -1,0 +1,28 @@
+<%= stylesheet_link_tag "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" %>
+<%= javascript_include_tag "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js" %>
+<div class='container' style="height:100px">
+    <div id ="map" style="width: 300px; height: 100px; float:right">
+    
+    </div>
+    <script type="text/javascript">
+		var map = L.map('map', { zoomControl:false }).setView([<%= @team.geo %>], 12);
+
+		L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
+			maxZoom: 18,
+			id: 'examples.map-i875mjb7'
+		}).addTo(map);
+
+        
+		maker = new L.marker([<%= @team.geo %>]).addTo(map)
+			.bindPopup("<a href='#'><%=@team.name%></a><br /><%=@team.location%>");
+            
+
+	
+
+
+    </script>
+    <h1 margin-top:27px;margin-left:4px;><%= @team.name %></h1>
+</div>
+<div class='container'>
+        <p><%= @team.name %>, a team of <b><%= @team.students %> students</b>,  has a total of <b><%= @team.score %> points </b>and has recently participated in</p>
+</div>

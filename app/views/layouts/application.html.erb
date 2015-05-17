@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+	<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+	<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+	<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+	  <title>GavelRank</title>
+	  <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Some Assembly Required CTF">
+    <meta name="viewport" content="width=960, maximum-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,900' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+		<%= favicon_link_tag("favicon.png") %>
+		<%= stylesheet_link_tag "main" %>
+		<%= javascript_include_tag "application" %>
+		<%= javascript_include_tag "main" %>
+		<%= javascript_include_tag "plugins" %>
+	
+	  <%= csrf_meta_tags %>
+	</head>
+	<body>
+		<% if !current_user %>
+		<div id='login'>
+	  	<h4><a class='right'  href="/register">register</a></h4>
+	  </div>
+	  <%end%>
+	  <div id="login">
+	  	<% if current_user %>
+			<h4><a href="/logout" class="nav_link" >logout</a></h4>
+		</div>
+		<div id="login">
+       <h4>Hello, <a href="/team/<%=current_user.id%>"><%= current_user.name %> </a></h4>
+    </div>
+    <% else %>
+  	<%= form_for :school,  :method => 'post' do |f| %>
+	  		<%= f.text_field :name, placeholder: "Team Name", :class => "login"  %>
+			<%= f.password_field :password , placeholder: "Password", :class => "login" %>
+ 		<%= image_submit_tag("play.png", :class => "submit_button") %>
+   	 <% end %>
+   	<%end%>
+
+    </div>
+    <div id="logo">
+      <a href="/index"><%= image_tag "sarctf.png"%></a>
+			<ul>
+        <li><a href="/index">Home</a></li>
+				<li><a href="/events">Conferences</a></li>
+				<li><a href="/teams">Teams</a></li>
+				<li><a href="/about">About/FAQ</a></li>
+				
+			</ul>
+		</div>
+		<% if flash[:notice] %>
+  			<p class="flash"><%= h flash[:notice] %></p>
+		<% end %>
+		<%= yield %>
+
+		<div class="footer">
+			<p>GavelRank @ 2015</p>
+		</div>
+	</body>
+</html>
