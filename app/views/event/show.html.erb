@@ -24,7 +24,7 @@
     </script>
     <h1 style="margin-top:27px;margin-left:4px;"><%= @event.name %></h1>
 </div>
-<div class='container-left'>
+<div class='container-left' style='height:232px;'>
 	<h3>About</h3>
 	<div class="grey" style='width:500px; padding:20px'>
 		<%= @event.about %>
@@ -42,7 +42,7 @@
             </td>
             <td class="right">
             	<%z=calculate_best(@event,0)%>
-                <h4 class="righttext"><a href="/team/<%= School.find_by_name(z)%>"><%=z%></a></h4>
+                <h4 class="righttext"><a href="#"><%=z%></a></h4>
             </td>
         </tr>
         <tr>
